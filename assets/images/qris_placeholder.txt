@@ -1,0 +1,3 @@
+<!-- Placeholder for QRIS Image -->
+<!-- Please replace this file with your actual QRIS image named: qris.jpg -->
+<!-- Location: assets/images/qris.jpg -->

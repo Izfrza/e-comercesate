@@ -1,0 +1,239 @@
+================================================================================
+                    DOKUMENTASI PROYEK
+          SISTEM PEMESANAN MAKANAN ONLINE - SATE MADURA
+================================================================================
+
+================================================================================
+                        BAGIAN 1: BATASAN PROYEK
+================================================================================
+
+1.1 Deskripsi Proyek
+--------------------------------------------------------------------------------
+Proyek ini adalah sistem pemesanan makanan online untuk usaha Sate Madura. 
+Aplikasi ini memungkinkan pelanggan untuk melihat menu, memesan makanan secara 
+online, dan melakukan pembayaran melalui metode QRIS atau COD.
+
+1.2 Fitur Utama
+--------------------------------------------------------------------------------
+a) Manajemen Pengguna
+   - Registrasi akun pelanggan
+   - Login/Logout
+   - Reset password via email
+   - Profil pengguna
+
+b) Manajemen Menu
+   - Tampilan menu makanan
+   - Filter berdasarkan kategori
+   - Informasi harga dan stok
+   - Gambar produk
+
+c) Keranjang Belanja
+   - Tambah/hapus item
+   - Update quantity
+   - Hitung total harga
+
+d) Proses Checkout
+   - Input alamat pengiriman
+   - Input nomor WhatsApp
+   - Metode pembayaran (QRIS/COD)
+   - Catatan pesanan
+
+e) Manajemen Pesanan
+   - Riwayat pesanan
+   - Detail pesanan
+   - Status pesanan
+
+f) Dashboard Admin
+   - Manajemen menu (tambah/edit/hapus)
+   - Daftar pesanan
+   - Daftar pelanggan
+
+1.3 Batasan Teknis
+--------------------------------------------------------------------------------
+- Platform: Web (PHP, MySQL, JavaScript)
+- Database: MySQL
+- Framework: Bootstrap 5
+- Server: Localhost (Laragon)
+- Metode pembayaran: QRIS, COD
+
+1.4 Target Pengguna
+--------------------------------------------------------------------------------
+- Pelanggan: Masyarakat umum yang ingin memesan makanan Sate Madura
+- Admin: Pemilik/restoran yang mengelola pesanan dan menu
+
+================================================================================
+                        BAGIAN 2: USE CASE
+================================================================================
+
+2.1 Diagram Use Case
+--------------------------------------------------------------------------------
+
+    +------------------+
+    |    PELANGGAN     |
+    +------------------+
+           |
+           +--> Registrasi
+           +--> Login
+           +--> Lihat Menu
+           +--> Tambah ke Keranjang
+           +--> Checkout
+           +--> Lihat Riwayat Pesanan
+           +--> Kelola Profil
+
+    +------------------+
+    |      ADMIN       |
+    +------------------+
+           |
+           +--> Login
+           +--> Kelola Menu
+           +--> Kelola Pesanan
+           +--> Lihat Daftar Pelanggan
+
+2.2 Deskripsi Use Case
+--------------------------------------------------------------------------------
+
+UC-001: Registrasi Akun
+--------------------------------------------------------------------------------
+Aktor: Pelanggan
+Deskripsi: Pelanggan membuat akun baru untuk dapat memesan makanan
+Pre-condition: Pelanggan belum memiliki akun
+Flow:
+    1. Pelanggan membuka halaman registrasi
+    2. Pelanggan mengisi form registrasi (nama, email, password, phone, address)
+    3. Sistem memvalidasi data
+    4. Sistem menyimpan data ke database
+    5. Sistem menampilkan pesan sukses
+Post-condition: Akun berhasil dibuat
+
+UC-002: Login
+--------------------------------------------------------------------------------
+Aktor: Pelanggan, Admin
+Deskripsi: Pengguna masuk ke sistem
+Pre-condition: Pengguna telah memiliki akun
+Flow:
+    1. Pengguna membuka halaman login
+    2. Pengguna memasukkan email dan password
+    3. Sistem memvalidasi kredensial
+    4. Sistem mengarahkan ke halaman sesuai role
+Post-condition: Pengguna berhasil login
+
+UC-003: Lihat Menu
+--------------------------------------------------------------------------------
+Aktor: Pelanggan
+Deskripsi: Pelanggan melihat daftar menu makanan yang tersedia
+Pre-condition: Pelanggan telah login
+Flow:
+    1. Pelanggan membuka halaman menu
+    2. Sistem menampilkan daftar menu dari database
+    3. Pelanggan dapat memfilter berdasarkan kategori
+    4. Pelanggan dapat melihat detail menu
+Post-condition: Menu ditampilkan
+
+UC-004: Tambah ke Keranjang
+--------------------------------------------------------------------------------
+Aktor: Pelanggan
+Deskripsi: Pelanggan menambahkan item ke keranjang belanja
+Pre-condition: Pelanggan telah login dan melihat menu
+Flow:
+    1. Pelanggan memilih item dan jumlah
+    2. Pelanggan klik tombol "Tambah ke Keranjang"
+    3. Sistem menyimpan ke localStorage
+    4. Sistem menampilkan notifikasi sukses
+Post-condition: Item ditambahkan ke keranjang
+
+UC-005: Checkout
+--------------------------------------------------------------------------------
+Aktor: Pelanggan
+Deskripsi: Pelanggan menyelesaikan pesanan
+Pre-condition: Pelanggan memiliki item di keranjang
+Flow:
+    1. Pelanggan membuka halaman checkout
+    2. Pelanggan mengisi alamat pengiriman
+    3. Pelanggan memilih metode pembayaran
+    4. Pelanggan menambah catatan (opsional)
+    5. Pelanggan klik "Buat Pesanan"
+    6. Sistem memvalidasi data
+    7. Sistem menyimpan pesanan ke database
+    8. Sistem mengurangi stok produk
+    9. Sistem mengarahkan ke halaman pembayaran
+Post-condition: Pesanan berhasil dibuat
+
+UC-006: Pembayaran QRIS
+--------------------------------------------------------------------------------
+Aktor: Pelanggan
+Deskripsi: Pelanggan melakukan pembayaran via QRIS
+Pre-condition: Pesanan telah dibuat dengan metode QRIS
+Flow:
+    1. Pelanggan melihat kode QRIS
+    2. Pelanggan melakukan pembayaran via aplikasi mobile banking
+    3. Pelanggan upload bukti pembayaran (jika diperlukan)
+    4. Sistem menunggu konfirmasi admin
+Post-condition: Pembayaran menunggu konfirmasi
+
+UC-007: Pembayaran COD
+--------------------------------------------------------------------------------
+Aktor: Pelanggan
+Deskripsi: Pelanggan memilih pembayaran saat terima barang
+Pre-condition: Pesanan telah dibuat dengan metode COD
+Flow:
+    1. Sistem menampilkan informasi pesanan
+    2. Pelanggan menunggu konfirmasi dari admin
+    3. Pelanggan melakukan pembayaran saat terima barang
+Post-condition: Pesanan menunggu konfirmasi
+
+UC-008: Lihat Riwayat Pesanan
+--------------------------------------------------------------------------------
+Aktor: Pelanggan
+Deskripsi: Pelanggan melihat riwayat pesanannya
+Pre-condition: Pelanggan telah login
+Flow:
+    1. Pelanggan membuka halaman "My Orders"
+    2. Sistem menampilkan daftar pesanan
+    3. Pelanggan dapat melihat detail pesanan
+Post-condition: Riwayat pesanan ditampilkan
+
+UC-009: Kelola Menu (Admin)
+--------------------------------------------------------------------------------
+Aktor: Admin
+Deskripsi: Admin menambah/mengedit/menghapus menu
+Pre-condition: Admin telah login
+Flow:
+    1. Admin membuka dashboard
+    2. Admin membuka halaman menu management
+    3. Admin dapat menambah menu baru
+    4. Admin dapat mengedit menu
+    5. Admin dapat menghapus menu
+    6. Sistem menyimpan perubahan ke database
+Post-condition: Menu berhasil dikelola
+
+UC-010: Kelola Pesanan (Admin)
+--------------------------------------------------------------------------------
+Aktor: Admin
+Deskripsi: Admin melihat dan memproses pesanan
+Pre-condition: Admin telah login
+Flow:
+    1. Admin membuka dashboard
+    2. Admin melihat daftar pesanan
+    3. Admin dapat melihat detail pesanan
+    4. Admin dapat mengubah status pesanan
+    5. Admin dapat mengkonfirmasi pembayaran
+Post-condition: Pesanan diproses
+
+================================================================================
+                           PENUTUP
+================================================================================
+
+Dokumen ini merupakan spesifikasi awal yang dapat berkembang sesuai dengan 
+kebutuhan proyek. Setiap perubahan harus didokumentasikan dan disetujui 
+oleh pihak terkait.
+
+================================================================================
+                         INFORMASI PROYEK
+================================================================================
+
+Nama Proyek: Sate Madura Online Ordering System
+Versi: 1.0
+Tanggal: 2024
+Teknologi: PHP, MySQL, Bootstrap 5, JavaScript
+
+================================================================================
